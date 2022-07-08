@@ -2,7 +2,7 @@ import { useState } from 'react'
 import logo from './logo.svg'
 import './App.css'
 import CanvasMap from './page/canvas'
-// import { myAxios } from './service/request'
+
 function App() {
   const [count, setCount] = useState(0)
 
