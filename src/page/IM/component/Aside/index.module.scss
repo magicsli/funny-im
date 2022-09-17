@@ -1,0 +1,34 @@
+.aside {
+  width: 100px;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  background-color: rgb(54, 62, 71);
+
+  .nav {
+    flex: 1;
+
+    .nav-item {
+      box-sizing: border-box;
+      height: 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-left: 4px solid transparent;
+      cursor: pointer;
+      color: #99a6b2;
+
+      &:hover {
+        color: #fff;
+      }
+
+      &.active {
+        border-left-color: rgb(85, 212, 139);
+        color: #fff;
+      }
+    }
+  }
+}
