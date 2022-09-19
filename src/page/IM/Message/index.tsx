@@ -1,13 +1,19 @@
 import React from 'react'
 import styles from './index.module.scss'
 
-// const getusermedia = require('getusermedia')
-// const screenRecord = require('screen-record')
-
+import ChatList from './component/ChatList'
+import Room from './component/Room'
 export interface Messagerops {}
 
 const Message = () => {
-  return <aside className={styles.aside}>Message</aside>
+  return (
+    <div className={styles.container}>
+      <ChatList />
+      <div className={styles.room}>
+        <Room />
+      </div>
+    </div>
+  )
 }
 
 export default Message

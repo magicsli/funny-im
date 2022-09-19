@@ -2,9 +2,6 @@ import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import videoStreamMerge from 'video-stream-merger'
 import styles from './index.module.scss'
 
-// const getusermedia = require('getusermedia')
-// const screenRecord = require('screen-record')
-
 export type LiveProps = {}
 
 const Live = ({}: LiveProps) => {

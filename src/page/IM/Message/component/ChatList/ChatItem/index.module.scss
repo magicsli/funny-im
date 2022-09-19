@@ -1,0 +1,53 @@
+.card {
+  display: flex;
+  align-items: center;
+  padding: 24px;
+  cursor: pointer;
+  background-color: #434a54;
+
+  &:hover {
+    background-color: #f4f4f4;
+  }
+
+  .card-content {
+    flex: 1;
+    margin-left: 24px;
+    overflow: hidden;
+
+    .card-header {
+      display: flex;
+      width: 100%;
+      margin-bottom: 8px;
+      .card-name {
+        width: 0;
+        flex: 1;
+        margin-right: 30px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        font-size: 18px;
+        color: #fff;
+      }
+      .card-time {
+        font-size: 14px;
+        color: #999;
+      }
+    }
+
+    .card-info {
+      display: flex;
+
+      .card-message {
+        margin-right: 20px;
+        width: 0;
+        flex: 1;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+
+        font-size: 14px;
+        color: #6b7580;
+      }
+    }
+  }
+}

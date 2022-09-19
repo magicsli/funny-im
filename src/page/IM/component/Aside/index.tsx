@@ -1,7 +1,11 @@
 import Iconfont from '@/components/IconFont'
-import { IMRouterPath, RootRouterPath } from '@/router/path'
+import { RootState } from '@/redux'
+import { IUser } from '@/redux/user'
+import { IMRouterPath } from '@/router/path'
+import { Avatar, Tooltip } from 'antd'
 import cs from 'classnames'
-import { useLocation, useMatch, useMatches, useNavigate, useResolvedPath } from 'react-router'
+import { useSelector } from 'react-redux'
+import { useLocation, useNavigate } from 'react-router'
 import styles from './index.module.scss'
 
 const navList = [
@@ -26,13 +30,19 @@ const navList = [
 ]
 
 export type Asiderops = {}
-
 const Aside = () => {
   const location = useLocation()
   const navigate = useNavigate()
 
+  const userInfo = useSelector<RootState, IUser>(state => state.user)
+
   return (
     <aside className={styles.aside}>
+      <div className={styles.user}>
+        <Tooltip title={userInfo.name} placement='bottomLeft'>
+          <Avatar size={50} src={userInfo.avatar} />
+        </Tooltip>
+      </div>
       <div className={styles.nav}>
         {navList.map(item => (
           <div
@@ -42,7 +52,6 @@ const Aside = () => {
               [styles.active]: location.pathname === item.path
             })}>
             <Iconfont name={item.icon} />
-            <div>{item.title}</div>
           </div>
         ))}
       </div>

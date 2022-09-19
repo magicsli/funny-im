@@ -20,7 +20,6 @@ export const router = createBrowserRouter([
     element: <IM />,
     children: [
       {
-        id: IMRouterPath.Message,
         path: IMRouterPath.Message,
         element: (
           <React.Suspense fallback={<MessageLoading />}>
@@ -37,7 +36,7 @@ export const router = createBrowserRouter([
         element: <Me />
       },
       {
-        path: '*',
+        index: true,
         element: <Navigate to={IMRouterPath.Message} />
       }
     ]
@@ -49,5 +48,9 @@ export const router = createBrowserRouter([
   {
     path: RootRouterPath.Regiset,
     element: <Regiset />
+  },
+  {
+    index: true,
+    element: <Navigate to={RootRouterPath.IM} />
   }
 ])

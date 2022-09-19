@@ -1,5 +1,5 @@
 import classnames from 'classnames'
-
+import styles from './index.module.scss'
 export interface IconFontProps {
   name: string
   size?: number | string
@@ -16,7 +16,7 @@ const Iconfont: React.FC<IconFontProps> = ({ name, classname, style, size, color
         color,
         ...style
       }}
-      className={classnames('icon', classname)}
+      className={classnames(styles.icon, classname)}
       aria-hidden='true'>
       <use xlinkHref={`#${name}`}></use>
     </svg>

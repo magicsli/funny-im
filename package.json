@@ -1,7 +1,8 @@
 {
-  "name": "react-map",
+  "name": "funny-im",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "author": "xiaoli",
   "scripts": {
     "dev": "vite",
     "lint": "eslint",
@@ -11,13 +12,19 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.5",
+    "ahooks": "^3.7.1",
+    "antd": "^4.23.2",
     "axios": "^0.27.2",
     "classnames": "^2.3.2",
+    "dayjs": "^1.11.5",
+    "immer": "^9.0.15",
     "leaflet": "^1.8.0",
     "lodash": "^4.17.21",
+    "node-sass": "^7.0.3",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-leaflet": "^4.0.1",
+    "react-redux": "^8.0.2",
     "react-router": "^6.4.0",
     "react-router-dom": "^6.4.0",
     "video-stream-merger": "^4.0.1"
@@ -33,8 +40,9 @@
     "eslint": "^8.19.0",
     "eslint-plugin-react": "^7.30.1",
     "husky": "^8.0.1",
-    "sass": "^1.53.0",
+    "sass": "^1.54.9",
     "typescript": "^4.6.3",
-    "vite": "^2.9.9"
+    "vite": "^2.9.9",
+    "vite-plugin-imp": "^2.3.0"
   }
 }

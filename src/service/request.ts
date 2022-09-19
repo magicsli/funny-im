@@ -133,14 +133,14 @@ export default class Request {
    * @param options get的请求参数
    * @returns get请求实例
    */
-  protected get<T>(url: string, options?: AxiosRequestConfig<T>) {
+  protected get<R = any, T = unknown>(url: string, options?: AxiosRequestConfig<T>) {
     let cancel: () => void
     const getInstance = this.axios.get(url, {
       cancelToken: new axios.CancelToken(cancelHanlder => {
         cancel = cancelHanlder
       }),
       ...options
-    }) as Promise<AxiosResponse<T, unknown>> & { cancel: () => void }
+    }) as Promise<AxiosResponse<R>> & { cancel: () => void }
 
     getInstance.cancel = cancel!
 
@@ -154,7 +154,7 @@ export default class Request {
    * @param config post请求配置
    * @returns post请求实例
    */
-  protected post<T = undefined>(url: string, data?: T, config?: AxiosRequestConfig<T>) {
+  protected post<R = any, T = unknown>(url: string, data?: T, config?: AxiosRequestConfig<T>) {
     let cancel: () => void
 
     const getInstance = this.axios.post(url, data, {
@@ -162,7 +162,7 @@ export default class Request {
         cancel = cancelHanlder
       }),
       ...config
-    }) as Promise<AxiosResponse<T, unknown>> & { cancel: () => void }
+    }) as Promise<AxiosResponse<R>> & { cancel: () => void }
     getInstance.cancel = cancel!
 
     return getInstance
@@ -175,7 +175,7 @@ export default class Request {
    * @param config put请求配置
    * @returns put请求实例
    */
-  protected put<T = undefined>(url: string, data?: T, config?: AxiosRequestConfig<T>) {
+  protected put<R = any, T = unknown>(url: string, data?: T, config?: AxiosRequestConfig<T>) {
     let cancel: () => void
 
     const getInstance = this.axios.put(url, data, {
@@ -183,7 +183,8 @@ export default class Request {
         cancel = cancelHanlder
       }),
       ...config
-    }) as Promise<AxiosResponse<T, unknown>> & { cancel: () => void }
+    }) as Promise<AxiosResponse<R>> & { cancel: () => void }
+
     getInstance.cancel = cancel!
 
     return getInstance
@@ -192,18 +193,20 @@ export default class Request {
   /**
    * delete请求
    * @param url 请求地址
+   * @param data 请求体中的参数 (注意！ delete 不推荐设置参数)
    * @param config delete请求配置
    * @returns delete请求实例
    */
-  protected delete<T = undefined>(url: string, config?: AxiosRequestConfig<T>) {
+  protected delete<R = string, T = unknown>(url: string, data?: T, config?: AxiosRequestConfig<T>) {
     let cancel: () => void
 
     const getInstance = this.axios.delete(url, {
       cancelToken: new axios.CancelToken(cancelHanlder => {
         cancel = cancelHanlder
       }),
+      data,
       ...config
-    }) as Promise<AxiosResponse<T, unknown>> & { cancel: () => void }
+    }) as Promise<AxiosResponse<R>> & { cancel: () => void }
 
     getInstance.cancel = cancel!
 

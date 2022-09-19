@@ -1,11 +1,28 @@
 .aside {
   width: 100px;
-  height: 100%;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
+  background-color: $navBg;
+  overflow: hidden;
 
-  background-color: rgb(54, 62, 71);
+  .user {
+    width: 100%;
+    padding: 20px;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    .name {
+      width: 100%;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      margin-top: 8px;
+      text-align: center;
+      color: #fff;
+    }
+  }
 
   .nav {
     flex: 1;
@@ -20,13 +37,15 @@
       border-left: 4px solid transparent;
       cursor: pointer;
       color: #99a6b2;
+      font-size: 28px;
 
       &:hover {
-        color: #fff;
+        color: #bbb;
       }
 
       &.active {
-        border-left-color: rgb(85, 212, 139);
+        border-left-color: #55d48b;
+        background-color: $chatBg;
         color: #fff;
       }
     }
