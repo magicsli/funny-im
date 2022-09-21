@@ -53,7 +53,7 @@ const buildAxiosInstance = () => {
       'Content-Type': 'application/json'
     },
     responseType: 'json',
-    baseURL: 'https://www.fastmock.site/mock/240ac3764aa8ee3963b796cfdc668a88/test'
+    baseURL: '/api'
   })
 }
 
@@ -211,5 +211,9 @@ export default class Request {
     getInstance.cancel = cancel!
 
     return getInstance
+  }
+
+  protected filter<T = unknown>(response: AxiosResponse<T>) {
+    return response.data
   }
 }

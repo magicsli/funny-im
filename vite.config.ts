@@ -15,6 +15,16 @@ export default defineConfig({
       ]
     })
   ],
+  server: {
+    port: 9527,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000/',
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/api/, '')
+      }
+    }
+  },
   envDir: resolve(__dirname, './env'),
   resolve: {
     alias: {
