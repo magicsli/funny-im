@@ -1,29 +1,14 @@
-/**
- * url: socket地址
- * vision： 连接版本
- * wss: 是否开启加密连接（对应https）
- */
-export interface SocketOptions {
-  url?: string
-  port?: number
-  vision?: number
-}
+import { io, Socket } from 'socket.io-client'
 
-export default class Socket {
-  public url = ''
-  public port?: number
-  public vision = 1
+export default class SocketIo {
+  public webSocket?: Socket
 
-  public webSocket?: WebSocket
+  constructor() {
+    this.webSocket = io('ws://localhost:3001')
 
-  constructor(options: SocketOptions) {
-    const { url = this.url, port = this.port, vision = this.vision } = options
-
-    this.url = url
-    this.port = port
-    this.vision = vision
-
-    this.webSocket = new WebSocket(`wss:${url + (port ? `:${port}` : '')}`)
+    this.webSocket?.on('connect', () => {
+      console.log(`SOCKET CONNTECTION！！！ \n\t KEY：${this.webSocket?.id}\n`)
+    })
 
     // 注册socket中的pubsub
     this.registerListen()
@@ -33,7 +18,11 @@ export default class Socket {
    * 注册响应回调
    * 所有的socket全部通过pubsub进行发送
    */
-  registerListen() {}
+  registerListen() {
+    this.webSocket?.on('message', value => {
+      console.log('socket mesage:', value)
+    })
+  }
 
   close() {
     return this.webSocket?.close()
