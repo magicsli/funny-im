@@ -4,7 +4,7 @@ import styles from './index.module.scss'
 
 export type LiveProps = {}
 
-const Live = ({}: LiveProps) => {
+const Live = (_prop: LiveProps) => {
   const videoRef = useRef<HTMLVideoElement>(null)
   // const [videoStream, setVideoStream] = useState<MediaStream>()
   useEffect(() => {
@@ -17,7 +17,6 @@ const Live = ({}: LiveProps) => {
       videoRef.current && (videoRef.current.srcObject = mediaStream)
     })
 
-    return () => {}
   }, [])
 
   return (

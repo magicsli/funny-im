@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
 
-const cancelToken = axios.CancelToken
+// const cancelToken = axios.CancelToken
 
 const showStatus = (status: number) => {
   let message = ''
@@ -57,8 +57,8 @@ const buildAxiosInstance = () => {
   })
 }
 
-const buildResponseHanlder = (axios: AxiosInstance) => {
-  axios.interceptors.response.use(
+const buildResponseHanlder = (axiosCtx: AxiosInstance) => {
+  axiosCtx.interceptors.response.use(
     response => {
       const status = response.status
       let msg = ''
@@ -93,9 +93,9 @@ const buildResponseHanlder = (axios: AxiosInstance) => {
   )
 }
 
-const buildRequestHanlder = (axios: AxiosInstance) => {
+const buildRequestHanlder = (axiosCtx: AxiosInstance) => {
   // 请求拦截器
-  axios.interceptors.request.use(
+  axiosCtx.interceptors.request.use(
     config => config,
     err => {
       err.message = '服务器异常，请联系管理员！'
