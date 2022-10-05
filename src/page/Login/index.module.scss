@@ -1,0 +1,76 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(90deg, $theme, #2e4055);
+
+  .card {
+    width: 550px;
+    height: 400px;
+    padding: 40px;
+    padding-bottom: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(75deg, $dark, #23384d);
+    border-radius: 16px;
+
+    .user,
+    .password {
+      display: flex;
+      align-items: center;
+      margin-top: 30px;
+      font-size: 16px;
+      color: #fff;
+      .label {
+        width: 60px;
+        margin-right: 12px;
+        text-align: right;
+      }
+
+      .input {
+        border-radius: 6px;
+        background-color: rgba($color: #000000, $alpha: 0.1);
+        color: #fff;
+        height: 40px;
+
+        :global {
+          .ant-input {
+            background-color: transparent;
+            color: #fff;
+          }
+          .ant-input-suffix .ant-input-password-icon.anticon {
+            color: #fff;
+          }
+        }
+      }
+    }
+
+    .btn-login {
+      width: 100%;
+      height: 50px;
+      margin-top: 50px;
+      border-radius: 12px;
+      background-color: $b-theme;
+      border-color: $b-theme;
+    }
+
+    .tips {
+      display: flex;
+      margin-top: 12px;
+      font-size: 12px;
+      color: $t-theme;
+      justify-content: space-between;
+
+      .quick {
+        cursor: pointer;
+      }
+
+      .register {
+        cursor: pointer;
+      }
+    }
+  }
+}

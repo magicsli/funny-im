@@ -28,17 +28,20 @@ export const userSlice = createSlice({
      */
     update(state, action: PayloadAction<IUser>) {
       switch (action.type) {
-        case 'full':
-          return action.payload
+        
+      // 全量更新
+      case 'full':
+        return action.payload
 
-        case 'inc':
-          return {
-            ...state,
-            ...action.payload
-          }
+      // 增量更新
+      case 'inc':
+        return {
+          ...state,
+          ...action.payload
+        }
 
-        default:
-          return state
+      default:
+        return state
       }
     },
 

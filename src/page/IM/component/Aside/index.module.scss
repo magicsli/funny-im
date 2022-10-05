@@ -2,7 +2,7 @@
   width: 100px;
   display: flex;
   flex-direction: column;
-  background-color: $navBg;
+  background-color: $theme;
   overflow: hidden;
 
   .user {
@@ -45,7 +45,7 @@
 
       &.active {
         border-left-color: #55d48b;
-        background-color: $chatBg;
+        background-color: $dark;
         color: #fff;
       }
     }
