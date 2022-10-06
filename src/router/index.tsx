@@ -4,7 +4,7 @@ import IM from '@/page/IM'
 import Friend from '@/page/IM/Friend'
 import Me from '@/page/IM/Me'
 import Login from '@/page/Login'
-import Regiset from '@/page/Regiset'
+import Register from '@/page/Register'
 import MessageLoading from '@/page/IM/Message/component/Loading'
 
 import { createBrowserRouter, Navigate } from 'react-router-dom'
@@ -46,8 +46,8 @@ export const router = createBrowserRouter([
     element: <Login />
   },
   {
-    path: RootRouterPath.Regiset,
-    element: <Regiset />
+    path: RootRouterPath.Register,
+    element: <Register />
   },
   {
     index: true,

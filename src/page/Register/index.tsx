@@ -8,24 +8,20 @@ import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router'
 import styles from './index.module.scss'
 
-export type LoginProps = {}
-
-const Login = () => {
+const Register = () => {
   const dispath = useDispatch()
+
   const [username, setUsername] = useState('')
 
   const [password, setPassword] = useState('')
+
+  const [confirm, setConfirm] = useState('')
 
   const [loading, setLoading] = useState(false)
 
   const Navigate = useNavigate()
 
-  const handleQuick = () => {
-    setUsername(`游客账号@${dayjs().format('YYYYMMDD')}`)
-    setPassword('password@123')
-  }
-
-  const handleLogin = async () => {
+  const handleRegister = async () => {
     setLoading(true)
     await setTimeoutPromise(3000)
     setLoading(false)
@@ -45,8 +41,8 @@ const Login = () => {
     message.success('登录成功！！！')
   }
 
-  const handleGoRegister = () => {
-    Navigate(RootRouterPath.Register)
+  const handleGoLogin = () => {
+    Navigate(RootRouterPath.Login)
   }
 
   return (
@@ -54,7 +50,7 @@ const Login = () => {
       <div className={styles.card}>
         <Input.Group>
           <div className={styles.user}>
-            <div className={styles.label}>账号：</div>
+            <div className={styles.label}>用户名：</div>
             <Input
               className={styles.input}
               placeholder='请输入用户Id/用户名'
@@ -67,9 +63,20 @@ const Login = () => {
             <div className={styles.label}>密码：</div>
             <Input.Password
               className={styles.input}
-              placeholder='请输入密码...'
+              placeholder='请输入密码'
               value={password}
-              onPressEnter={handleLogin}
+              onPressEnter={handleRegister}
+              onChange={e => setPassword(e.currentTarget?.value.trim())}
+            />
+          </div>
+
+          <div className={styles.password}>
+            <div className={styles.label}>确认密码：</div>
+            <Input.Password
+              className={styles.input}
+              placeholder='请再次输入密码'
+              value={password}
+              onPressEnter={handleRegister}
               onChange={e => setPassword(e.currentTarget?.value.trim())}
             />
           </div>
@@ -80,15 +87,12 @@ const Login = () => {
             loading={loading}
             className={styles['btn-login']}
             type='primary'
-            onClick={handleLogin}>
-            登录
+            onClick={handleRegister}>
+            注册
           </Button>
           <div className={styles.tips}>
-            <div className={styles.quick} onClick={handleQuick}>
-              游客快速登录
-            </div>
-            <div className={styles.register} onClick={handleGoRegister}>
-              注册
+            <div className={styles.login} onClick={handleGoLogin}>
+              前往登录
             </div>
           </div>
         </div>
@@ -97,4 +101,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Register

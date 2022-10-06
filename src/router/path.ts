@@ -4,7 +4,7 @@
 export enum RootRouterPath {
   IM = '/IM',
   Login = '/login',
-  Regiset = '/regiset'
+  Register = '/Register'
 }
 
 /**
