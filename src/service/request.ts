@@ -87,7 +87,7 @@ const buildResponseHanlder = (axiosCtx: AxiosInstance) => {
         return Promise.reject(err)
       }
 
-      err.message = '请求超时或服务器异常，请检查网络或联系管理员！'
+      err.message = showStatus(err.response?.status)
       return Promise.reject(err)
     }
   )
