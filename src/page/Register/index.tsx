@@ -1,42 +1,39 @@
 import { update as updateUser } from '@/redux/user'
 import { RootRouterPath } from '@/router/path'
+import userApi from '@/service/user'
 import { setTimeoutPromise } from '@/utils/tool'
-import { Button, Input, message } from 'antd'
-import dayjs from 'dayjs'
-import React, { useState } from 'react'
+import { Button, Form, FormProps, Input, message } from 'antd'
+import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router'
 import styles from './index.module.scss'
 
+export interface RegisterForm {
+  username: string
+  password: string
+}
+
 const Register = () => {
   const dispath = useDispatch()
 
-  const [username, setUsername] = useState('')
-
-  const [password, setPassword] = useState('')
-
-  const [confirm, setConfirm] = useState('')
+  const [form] = Form.useForm()
 
   const [loading, setLoading] = useState(false)
 
   const Navigate = useNavigate()
 
-  const handleRegister = async () => {
+  const handleRegister = async (fromData: RegisterForm) => {
+    const { username, password } = fromData
+
     setLoading(true)
+
+    userApi.register({
+      username,
+      password
+    })
+
     await setTimeoutPromise(3000)
     setLoading(false)
-
-    dispath(
-      updateUser({
-        name: username,
-        id: 'u5487930',
-        create_time: +new Date(),
-        avatar:
-          'https://d33wubrfki0l68.cloudfront.net/0834d0215db51e91525a25acf97433051f280f2f/c30f5/img/redux.svg'
-      })
-    )
-
-    Navigate(RootRouterPath.IM)
 
     message.success('登录成功！！！')
   }
@@ -48,46 +45,51 @@ const Register = () => {
   return (
     <div className={styles.container}>
       <div className={styles.card}>
-        <Input.Group>
-          <div className={styles.user}>
-            <div className={styles.label}>用户名：</div>
-            <Input
-              className={styles.input}
-              placeholder='请输入用户Id/用户名'
-              onChange={e => setUsername(e.currentTarget?.value.trim())}
-              value={username}
-            />
-          </div>
-
-          <div className={styles.password}>
-            <div className={styles.label}>密码：</div>
+        <Form name='control-hooks' form={form} onFinish={handleRegister}>
+          <Form.Item
+            hasFeedback
+            name='username'
+            label='用户名：'
+            rules={[{ required: true, message: '用户名不能为空！' }]}>
+            <Input className={styles.input} placeholder='请输入用户Id/用户名' />
+          </Form.Item>
+          <Form.Item
+            name='password'
+            label='密码：'
+            hasFeedback
+            rules={[{ required: true, message: '密码不能为空！' }]}>
             <Input.Password
+              visibilityToggle={false}
               className={styles.input}
               placeholder='请输入密码'
-              value={password}
-              onPressEnter={handleRegister}
-              onChange={e => setPassword(e.currentTarget?.value.trim())}
             />
-          </div>
+          </Form.Item>
 
-          <div className={styles.password}>
-            <div className={styles.label}>确认密码：</div>
-            <Input.Password
-              className={styles.input}
-              placeholder='请再次输入密码'
-              value={password}
-              onPressEnter={handleRegister}
-              onChange={e => setPassword(e.currentTarget?.value.trim())}
-            />
-          </div>
-        </Input.Group>
+          <Form.Item
+            name='password_confirm'
+            label='确认密码：'
+            hasFeedback
+            rules={[
+              { required: true, message: '请再次输入密码！' },
+              ({ getFieldValue }) => ({
+                validator(_, value) {
+                  if (!value || getFieldValue('password') === value) {
+                    return Promise.resolve()
+                  }
+                  return Promise.reject(new Error('两次输入的密码不一致！'))
+                }
+              })
+            ]}>
+            <Input.Password className={styles.input} placeholder='请再次输入密码' />
+          </Form.Item>
+        </Form>
 
         <div className={styles.handler}>
           <Button
             loading={loading}
             className={styles['btn-login']}
             type='primary'
-            onClick={handleRegister}>
+            onClick={form.submit}>
             注册
           </Button>
           <div className={styles.tips}>
