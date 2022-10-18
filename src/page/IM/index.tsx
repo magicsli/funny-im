@@ -1,7 +1,6 @@
 import useSubscribe from '@/hooks/useSubscribe'
 import { socket } from '@/service/socket'
 import { publish } from '@/utils/pubsub'
-import { PubSocket } from '@/utils/pubsub/typings'
 import { useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
 import Aside from './component/Aside'

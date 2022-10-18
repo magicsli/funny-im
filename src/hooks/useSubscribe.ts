@@ -1,4 +1,3 @@
-import { PubLocal, PubSocket, PubsubMap } from '@/utils/pubsub/typings'
 import { subscribe, unsubscribe } from 'pubsub-js'
 import { useCallback, useEffect, useRef } from 'react'
 
@@ -10,11 +9,11 @@ import { useCallback, useEffect, useRef } from 'react'
  */
 const useSubscribe = <K extends PubSocket | PubLocal>(
   key: K,
-  handler: PubSubJS.SubscriptionListener<PubsubMap[K]>
+  handler: PubSubJS.SubscriptionListener<PubSubMap[K]>
 ) => {
   const subRef = useRef<{
     token?: string
-    handler?: PubSubJS.SubscriptionListener<PubsubMap[K]>
+    handler?: PubSubJS.SubscriptionListener<PubSubMap[K]>
   }>({
     token: '',
     handler: undefined
