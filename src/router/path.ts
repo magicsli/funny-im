@@ -4,7 +4,7 @@
 export enum RootRouterPath {
   IM = '/IM',
   Login = '/login',
-  Register = '/Register'
+  Register = '/register'
 }
 
 /**
@@ -12,6 +12,6 @@ export enum RootRouterPath {
  */
 export enum IMRouterPath {
   Message = '/IM/message/:id',
-  firend = '/IM/firend',
+  firend = '/IM/friend',
   me = '/IM/me'
 }

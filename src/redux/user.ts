@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-
+import { router } from '@/router'
+import { RootRouterPath } from '@/router/path'
 export interface IUser {
   name: string
   id: string
@@ -23,26 +24,24 @@ export const userSlice = createSlice({
     /**
      * 更新用户信息
      * @param state 当前状态
-     * @param action 新的用户状态 （分为全量更新 / 增量更新）
+     * @param action 新的用户状态
      * @returns
      */
-    update(state, action: PayloadAction<IUser>) {
-      switch (action.type) {
-        
-      // 全量更新
-      case 'full':
-        return action.payload
-
-      // 增量更新
-      case 'inc':
-        return {
-          ...state,
-          ...action.payload
-        }
-
-      default:
-        return state
+    update(state, action: PayloadAction<Partial<IUser>>) {
+      return {
+        ...state,
+        ...action.payload
       }
+    },
+
+    /**
+     * 替换用户信息
+     * @param state 当前状态
+     * @param action 新的用户状态
+     * @returns
+     */
+    replace(_state, action: PayloadAction<IUser>) {
+      return action.payload
     },
 
     /**
@@ -50,6 +49,8 @@ export const userSlice = createSlice({
      * @returns 初始数据
      */
     logout() {
+      // 退出登录重定向至 登录页
+      router.navigate(RootRouterPath.Login)
       return initialState
     }
   }

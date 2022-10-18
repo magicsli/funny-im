@@ -39,13 +39,13 @@ const Login = () => {
   }
 
   const handleGoLogin = () => {
-    Navigate(RootRouterPath.Login)
+    Navigate(RootRouterPath.Register)
   }
 
   return (
     <div className={styles.container}>
       <div className={styles.card}>
-        <Form name='control-hooks' form={form} onFinish={handleLogin}>
+        <Form name='control-hooks' requiredMark={false} form={form} onFinish={handleLogin}>
           <Form.Item
             name='username'
             label='用户名：'

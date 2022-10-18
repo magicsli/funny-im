@@ -1,12 +1,21 @@
 import { io, Socket } from 'socket.io-client'
 
-export default class SocketIo {
+export class SocketIo {
   public webSocket?: Socket
   public chatSocket?: Socket
 
   constructor() {
-    this.webSocket = io('ws://localhost:3001')
-    this.chatSocket = io('ws://localhost:3001/chat')
+    setTimeout(() => {
+      console.log('conection socket', this.webSocket, this.chatSocket)
+    }, 200)
+
+    this.webSocket = io('ws://localhost:3001', {
+      autoConnect: false
+    })
+
+    this.chatSocket = io('ws://localhost:3001/chat', {
+      autoConnect: false
+    })
 
     this.webSocket?.on('connect', () => {
       console.log(`SOCKET CONNTECTION！！！ \n\t KEY：${this.webSocket?.id}\n`)
@@ -20,6 +29,11 @@ export default class SocketIo {
 
     // 注册socket中的pubsub
     this.registerListen()
+  }
+
+  connect() {
+    this.webSocket?.connect()
+    this.chatSocket?.connect()
   }
 
   /**
@@ -40,3 +54,5 @@ export default class SocketIo {
     return this.webSocket?.close()
   }
 }
+
+export const socket = new SocketIo()
