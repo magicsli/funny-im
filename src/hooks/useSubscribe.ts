@@ -1,3 +1,4 @@
+import { PubLocal, PubSocket, PubSubMap } from '@/utils/pubsub/typings'
 import { subscribe, unsubscribe } from 'pubsub-js'
 import { useCallback, useEffect, useRef } from 'react'
 

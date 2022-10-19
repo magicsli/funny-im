@@ -1,4 +1,5 @@
 import { publish as pub, publishSync as pubSync } from 'pubsub-js'
+import { PubLocal, PubSocket, PubSubMap } from './typings'
 
 /**
  * 发布

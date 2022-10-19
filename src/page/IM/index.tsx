@@ -1,6 +1,6 @@
 import useSubscribe from '@/hooks/useSubscribe'
-import { socket } from '@/service/socket'
 import { publish } from '@/utils/pubsub'
+import { PubSocket } from '@/utils/pubsub/typings'
 import { useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
 import Aside from './component/Aside'
@@ -14,6 +14,8 @@ const IM = () => {
   })
 
   useEffect(() => {
+    console.log('pubkeys', Object.keys(PubSocket))
+
     setTimeout(() => {
       publish(PubSocket.CHAT_SEND_1, new Date().toDateString())
     }, 2000)
