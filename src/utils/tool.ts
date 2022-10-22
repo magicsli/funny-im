@@ -15,7 +15,7 @@ export const setTimeoutPromise = (timer: number): Promise<void> => {
 
 /**
  * 获取当前的token
- * @tips 默认将token注入与cookies中
+ * @tips 登录时默认将token注入与cookies中
  */
 
 export const getToken = () => {
