@@ -1,9 +1,11 @@
+import { router } from '@/router'
+import { RootRouterPath } from '@/router/path'
+import { message as Message } from 'antd'
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
-
-// const cancelToken = axios.CancelToken
 
 const showStatus = (status: number) => {
   let message = ''
+
   switch (status) {
   case 400:
     message = '请求错误(400)'
@@ -42,7 +44,8 @@ const showStatus = (status: number) => {
   default:
     message = `连接出错(${status})!`
   }
-  return `${message}，请检查网络或联系管理员！`
+
+  return message
 }
 
 const buildAxiosInstance = () => {
@@ -60,34 +63,39 @@ const buildAxiosInstance = () => {
 const buildResponseHanlder = (axiosCtx: AxiosInstance) => {
   axiosCtx.interceptors.response.use(
     response => {
-      const status = response.status
-      let msg = ''
-      if (status < 200 || (status >= 300 && status != 401 && status != 500)) {
-        // 处理http错误，抛到业务代码
-        msg = showStatus(status)
-        if (typeof response.data === 'string') {
-          response.data = { _msg: msg }
-        } else {
-          response.data.msg = msg
-        }
-        return response
-      } else if (status == 200) {
-        return response
-      } else if (status == 500) {
-        msg = showStatus(status)
-        response.data = { _msg: msg }
-        // router.replace({ name: 'exception', query: { type: 500 } })
-        return response
-      }
+      return response.data
     },
 
     err => {
+      // 主动终止直接截断
       if (err.code === 'ERR_CANCELED') {
         err.message = '请求已被手动中止'
         return Promise.reject(err)
       }
 
-      err.message = showStatus(err.response?.status)
+      const response = err.response
+      const status = response?.status
+
+      if (status < 200 || (status >= 300 && status != 401 && status != 500)) {
+        // 处理http错误，抛到业务代码
+        if (typeof response.data === 'string') {
+          response.data = { _msg: showStatus(status) }
+        } else {
+          response.data.msg = showStatus(status)
+        }
+      }
+
+      if (status === 401) {
+        // 触发重新登录
+        Message.error('登录超时！请重新登录')
+        
+        router.navigate(RootRouterPath.Login, {
+          replace: true
+        })
+      }
+
+      
+      err.message = showStatus(status)
       return Promise.reject(err)
     }
   )
@@ -140,7 +148,7 @@ export default class Request {
         cancel = cancelHanlder
       }),
       ...options
-    }) as Promise<AxiosResponse<R>> & { cancel: () => void }
+    }) as Promise<R> & { cancel: () => void }
 
     getInstance.cancel = cancel!
 
@@ -162,7 +170,7 @@ export default class Request {
         cancel = cancelHanlder
       }),
       ...config
-    }) as Promise<AxiosResponse<R>> & { cancel: () => void }
+    }) as Promise<R> & { cancel: () => void }
     getInstance.cancel = cancel!
 
     return getInstance
@@ -183,7 +191,7 @@ export default class Request {
         cancel = cancelHanlder
       }),
       ...config
-    }) as Promise<AxiosResponse<R>> & { cancel: () => void }
+    }) as Promise<R> & { cancel: () => void }
 
     getInstance.cancel = cancel!
 
@@ -206,14 +214,11 @@ export default class Request {
       }),
       data,
       ...config
-    }) as Promise<AxiosResponse<R>> & { cancel: () => void }
+    }) as Promise<R> & { cancel: () => void }
 
     getInstance.cancel = cancel!
 
     return getInstance
   }
 
-  protected filter<T = unknown>(response: AxiosResponse<T>) {
-    return response.data
-  }
 }

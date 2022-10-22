@@ -1,7 +1,6 @@
-import { update as updateUser } from '@/redux/user'
+import { replace } from '@/redux/user'
 import { RootRouterPath } from '@/router/path'
 import userApi from '@/service/user'
-import { setTimeoutPromise } from '@/utils/tool'
 import { Button, Form, Input, message } from 'antd'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
@@ -27,19 +26,28 @@ const Login = () => {
 
     setLoading(true)
 
-    userApi.login({
+    const result = await userApi.login({
       username,
       password
     })
 
-    await setTimeoutPromise(3000)
     setLoading(false)
-
     message.success('登录成功！！！')
+    dispath(replace(result))
+    Navigate(RootRouterPath.IM)
   }
 
-  const handleGoLogin = () => {
+  const handleGoRegister = () => {
     Navigate(RootRouterPath.Register)
+  }
+
+  // 游客登录
+  const handleVisitor = () => {
+    userApi.visitor().then(result => {
+      message.success('登录成功！！！')
+      dispath(replace(result))
+      Navigate(RootRouterPath.IM)
+    })
   }
 
   return (
@@ -73,7 +81,10 @@ const Login = () => {
             登录
           </Button>
           <div className={styles.tips}>
-            <div className={styles.login} onClick={handleGoLogin}>
+            <div className={styles.visitor} onClick={handleVisitor}>
+              游客登录
+            </div>
+            <div className={styles.register} onClick={handleGoRegister}>
               前往注册
             </div>
           </div>

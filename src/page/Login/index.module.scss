@@ -83,11 +83,13 @@
     .tips {
       display: flex;
       margin-top: 12px;
+      padding: 0 12px;
       font-size: 12px;
       color: $t-theme;
-      justify-content: center;
+      justify-content: space-between;
 
-      .login {
+      .register,
+      .visitor {
         cursor: pointer;
       }
     }

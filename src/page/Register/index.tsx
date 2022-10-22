@@ -1,4 +1,4 @@
-import { update as updateUser } from '@/redux/user'
+import { replace, update as updateUser } from '@/redux/user'
 import { RootRouterPath } from '@/router/path'
 import userApi from '@/service/user'
 import { setTimeoutPromise } from '@/utils/tool'
@@ -27,14 +27,13 @@ const Register = () => {
 
     setLoading(true)
 
-    userApi.register({
+    const result = await userApi.register({
       username,
       password
     })
 
-    await setTimeoutPromise(3000)
     setLoading(false)
-
+    dispath(replace(result))
     message.success('登录成功！！！')
   }
 

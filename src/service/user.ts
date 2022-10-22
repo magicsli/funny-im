@@ -1,10 +1,9 @@
 import Request from './request'
 
-
 export interface LoginPrams {
   username: string
   password: string
-  isQuick?:boolean
+  isQuick?: boolean
 }
 
 export interface RegisterPrams {
@@ -13,24 +12,27 @@ export interface RegisterPrams {
 }
 
 class UserApi extends Request {
-  getUsers() {
-    return this.get('/users')
+  /**
+   * 游客登录
+   */
+  visitor(){
+    return this.post<IUser>('/visitor')
   }
 
   /**
    * 登录
-   * @param user 登录数据
+   * @param user 用户信息
    */
   login(user: LoginPrams) {
-    return this.post('/login', user)
+    return this.post<IUser>('/login', user)
   }
 
   /**
-   * 登录
-   * @param user 登录数据
+   * 注册
+   * @param user 用户信息
    */
   register(user: RegisterPrams) {
-    return this.post('/register', user)
+    return this.post<IUser>('/register', user)
   }
 }
 
