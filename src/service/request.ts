@@ -94,6 +94,19 @@ const buildResponseHanlder = (axiosCtx: AxiosInstance) => {
         })
       }
 
+
+      /**
+       * 500 是已知的后台返回错误， 返回业务层主动处理
+       */
+      if (status === 500) {
+
+        router.navigate(RootRouterPath.Login, {
+          replace: true
+        })
+
+        return Promise.reject(err.response.data)
+      }
+
       
       err.message = showStatus(status)
       return Promise.reject(err)
@@ -119,6 +132,8 @@ const buildRequestHanlder = (axiosCtx: AxiosInstance) => {
 export default class Request {
   private axios: AxiosInstance
 
+  name = '' // 模块名
+
   constructor() {
     const axiosInstance = buildAxiosInstance()
 
@@ -143,7 +158,7 @@ export default class Request {
    */
   protected get<R = any, T = unknown>(url: string, options?: AxiosRequestConfig<T>) {
     let cancel: () => void
-    const getInstance = this.axios.get(url, {
+    const getInstance = this.axios.get(this.joinUrl(url), {
       cancelToken: new axios.CancelToken(cancelHanlder => {
         cancel = cancelHanlder
       }),
@@ -165,7 +180,7 @@ export default class Request {
   protected post<R = any, T = unknown>(url: string, data?: T, config?: AxiosRequestConfig<T>) {
     let cancel: () => void
 
-    const getInstance = this.axios.post(url, data, {
+    const getInstance = this.axios.post(this.joinUrl(url), data, {
       cancelToken: new axios.CancelToken(cancelHanlder => {
         cancel = cancelHanlder
       }),
@@ -186,7 +201,7 @@ export default class Request {
   protected put<R = any, T = unknown>(url: string, data?: T, config?: AxiosRequestConfig<T>) {
     let cancel: () => void
 
-    const getInstance = this.axios.put(url, data, {
+    const getInstance = this.axios.put(this.joinUrl(url), data, {
       cancelToken: new axios.CancelToken(cancelHanlder => {
         cancel = cancelHanlder
       }),
@@ -208,7 +223,7 @@ export default class Request {
   protected delete<R = string, T = unknown>(url: string, data?: T, config?: AxiosRequestConfig<T>) {
     let cancel: () => void
 
-    const getInstance = this.axios.delete(url, {
+    const getInstance = this.axios.delete(this.joinUrl(url), {
       cancelToken: new axios.CancelToken(cancelHanlder => {
         cancel = cancelHanlder
       }),
@@ -219,6 +234,10 @@ export default class Request {
     getInstance.cancel = cancel!
 
     return getInstance
+  }
+
+  private joinUrl(url = '') {
+    return (this.name + url).replace(/\/+/, '/').replace(/\/$/i, '')
   }
 
 }

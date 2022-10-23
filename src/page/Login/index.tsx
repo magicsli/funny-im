@@ -21,20 +21,29 @@ const Login = () => {
 
   const Navigate = useNavigate()
 
-  const handleLogin = async (fromData: LoginForm) => {
+  const handleLogin = (fromData: LoginForm) => {
     const { username, password } = fromData
 
     setLoading(true)
 
-    const result = await userApi.login({
-      username,
-      password
-    })
-
-    setLoading(false)
-    message.success('登录成功！！！')
-    dispath(replace(result))
-    Navigate(RootRouterPath.IM)
+    userApi
+      .login({
+        username,
+        password
+      })
+      .then(result => {
+        message.success('登录成功！！！')
+        dispath(replace(result))
+        Navigate(RootRouterPath.IM)
+      })
+      .catch(error => {
+        if (error.code === 500) {
+          message.error(error.message || '登录失败！请重试')
+        }
+      })
+      .finally(() => {
+        setLoading(false)
+      })
   }
 
   const handleGoRegister = () => {

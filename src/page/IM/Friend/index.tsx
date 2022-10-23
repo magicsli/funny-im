@@ -1,10 +1,24 @@
-import React from 'react'
+import userApi from '@/service/user'
+import React, { useEffect, useState } from 'react'
 import styles from './index.module.scss'
 
 export interface Friendrops {}
 
 const Friend = () => {
-  return <div className={styles.Friend}>Friend</div>
+  const [friends, setFriends] = useState<IUser[]>([])
+  useEffect(() => {
+    userApi.getFriends().then(setFriends)
+  }, [])
+
+  return (
+    <div className={styles.friend}>
+      {friends.map(item => (
+        <div className={styles.card} key={item._id}>
+          {item.name}
+        </div>
+      ))}
+    </div>
+  )
 }
 
 export default Friend

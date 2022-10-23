@@ -34,6 +34,15 @@ class UserApi extends Request {
   register(user: RegisterPrams) {
     return this.post<IUser>('/register', user)
   }
+
+
+  /**
+   * 
+   * @returns 当前所有的好友信息
+   */
+  getFriends() {
+    return this.get<IUser[]>('/user')
+  }
 }
 
 const userApi = new UserApi()

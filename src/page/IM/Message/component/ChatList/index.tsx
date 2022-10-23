@@ -1,4 +1,4 @@
-import chatApi from '@/service/chat'
+import chatApi from '@/service/room'
 import { IChat } from '@/service/typing'
 import React, { useEffect, useState } from 'react'
 import ChatItem from './ChatItem'
@@ -10,7 +10,7 @@ const ChatList = () => {
   const [chatList, setChatList] = useState<IChat[]>([])
 
   useEffect(() => {
-    chatApi.getChatList().then(res => {
+    chatApi.getRooms().then(res => {
       console.log('res', res)
     })
   }, [])

@@ -22,19 +22,24 @@ const Register = () => {
 
   const Navigate = useNavigate()
 
-  const handleRegister = async (fromData: RegisterForm) => {
+  const handleRegister = (fromData: RegisterForm) => {
     const { username, password } = fromData
 
     setLoading(true)
 
-    const result = await userApi.register({
-      username,
-      password
-    })
-
-    setLoading(false)
-    dispath(replace(result))
-    message.success('登录成功！！！')
+    userApi
+      .register({
+        username,
+        password
+      })
+      .then(result => {
+        dispath(replace(result))
+        message.success('登录成功！！！')
+        Navigate(RootRouterPath.IM)
+      })
+      .finally(() => {
+        setLoading(false)
+      })
   }
 
   const handleGoLogin = () => {

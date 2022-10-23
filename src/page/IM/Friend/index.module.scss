@@ -1,5 +1,15 @@
-.video {
-  width: 100%;
-  height: max-content;
-  margin: 50px auto;
+.friend {
+  background-color: $theme;
+  color: #fff;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+
+  .card {
+    padding: 40px;
+    background-color: $dark;
+    max-width: 200px;
+    box-shadow: 0 0 6px $light;
+    cursor: pointer;
+  }
 }
