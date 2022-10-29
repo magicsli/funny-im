@@ -10,7 +10,7 @@ import MessageLoading from '@/page/IM/Message/component/Loading'
 import { createBrowserRouter, Navigate } from 'react-router-dom'
 import { IMRouterPath, RootRouterPath } from './path'
 
-const IMMessage = React.lazy(() => import('@/page/IM/Message'))
+const Message = React.lazy(() => import('@/page/IM/Message'))
 
 // 此页面引入了所有其他页面， 请不要随意导入， 其余需要定义的请在其他页面引入， 防止循环引用
 export const router = createBrowserRouter([
@@ -23,7 +23,7 @@ export const router = createBrowserRouter([
         path: IMRouterPath.Message,
         element: (
           <React.Suspense fallback={<MessageLoading />}>
-            <IMMessage />
+            <Message />
           </React.Suspense>
         )
       },

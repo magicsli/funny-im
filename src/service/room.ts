@@ -1,5 +1,4 @@
 import Request from './request'
-import { IChat } from './typing'
 
 class ChatApi extends Request {
 
@@ -12,6 +11,17 @@ class ChatApi extends Request {
     return this.get<IRoom[]>('/list')
   }
 
+  /**
+   * 获取聊天室详情
+   */
+  getRoomDetail(id:string) {
+    return this.get<IRoom>('/detail', {
+      params: {
+        id
+      }
+    })
+  }
+
   getChatList() {
     return this.post<IChat[]>('/chats')
   }
@@ -19,6 +29,6 @@ class ChatApi extends Request {
 
 }
 
-const cahtApi = new ChatApi()
+const RoomApi = new ChatApi()
 
-export default cahtApi
+export default RoomApi

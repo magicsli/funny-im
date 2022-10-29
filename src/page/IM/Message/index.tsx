@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './index.module.scss'
 
 import ChatList from './component/ChatList'
-import Room from './component/Room'
+import Room from './module/Room'
 export interface Messagerops {}
 
 const Message = () => {
