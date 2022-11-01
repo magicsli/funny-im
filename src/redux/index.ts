@@ -7,6 +7,7 @@ export const store = configureStore({
   }
 })
 
+// 全局导出 redux的类型
 export type RootState = ReturnType<typeof store.getState>
 
 export type AppDispatch = typeof store.dispatch

@@ -9,6 +9,7 @@ import MessageLoading from '@/page/IM/Message/component/Loading'
 
 import { createBrowserRouter, Navigate } from 'react-router-dom'
 import { IMRouterPath, RootRouterPath } from './path'
+import AuthLogin from '@/components/Auth/Login'
 
 const Message = React.lazy(() => import('@/page/IM/Message'))
 
@@ -17,7 +18,11 @@ export const router = createBrowserRouter([
   {
     id: RootRouterPath.IM,
     path: RootRouterPath.IM,
-    element: <IM />,
+    element: (
+      <AuthLogin>
+        <IM />
+      </AuthLogin>
+    ),
     children: [
       {
         path: IMRouterPath.Message,

@@ -1,7 +1,7 @@
 import { router } from '@/router'
 import { RootRouterPath } from '@/router/path'
 import { message as Message } from 'antd'
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
+import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
 
 const showStatus = (status: number) => {
   let message = ''

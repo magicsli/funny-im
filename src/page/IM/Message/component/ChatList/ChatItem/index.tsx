@@ -1,5 +1,4 @@
 import AvatarGroup from '@/components/AvatarGroup'
-import { IChat } from '@/service/typing'
 import { autoShowTime } from '@/utils/time'
 import React from 'react'
 import styles from './index.module.scss'

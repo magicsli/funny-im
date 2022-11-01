@@ -12,6 +12,15 @@ export interface RegisterPrams {
 }
 
 class UserApi extends Request {
+
+  /**
+   * 更新登录（更新用户信息）
+   * @param user 用户信息
+   */
+  update() {
+    return this.get<IUser>('/update')
+  }
+
   /**
    * 游客登录
    */

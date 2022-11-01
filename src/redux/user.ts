@@ -5,11 +5,10 @@ import { RootRouterPath } from '@/router/path'
 
 
 const initialState: IUser = {
-  name: '我是一头猪',
-  _id: 'u5487930',
-  create_time: 1663594069000,
-  avatar:
-    'https://d33wubrfki0l68.cloudfront.net/0834d0215db51e91525a25acf97433051f280f2f/c30f5/img/redux.svg'
+  name: '',
+  _id: '',
+  create_time: 0,
+  avatar: ''
 }
 
 export const userSlice = createSlice({
