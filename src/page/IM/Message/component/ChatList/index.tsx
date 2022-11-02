@@ -7,25 +7,25 @@ export interface Roomrops {}
 
 const tranformToChatCard = (room: IRoom) => {
   return {
-    room_id: room._id,
+    room_id: room.room_id,
     avatars: room.members.map(item => item.avatar)
   }
 }
 
 const ChatList = () => {
-  const [chatList, setChatList] = useState<IChat[]>([])
+  const [chatList, setChatList] = useState<IRoom[]>([])
 
   useEffect(() => {
     // 每个聊天室就是一个聊天卡片
     chatApi.getRooms().then(res => {
-      // setChatList(res)
+      setChatList(res)
     })
   }, [])
 
   return (
     <div className={styles.chat}>
       {chatList.map(item => (
-        <ChatItem key={item.chat_id} item={item} />
+        <ChatItem key={item.room_id} item={item} />
       ))}
     </div>
   )

@@ -1,8 +1,8 @@
-import { IMRouterPath, RootRouterPath } from '@/router/path'
+import { IMRouterPath } from '@/router/path'
 import RoomApi from '@/service/room'
 import userApi from '@/service/user'
 import React, { useEffect, useState } from 'react'
-import { useNavigate, generatePath } from 'react-router'
+import { useNavigate, generatePath, parsePath } from 'react-router'
 import styles from './index.module.scss'
 
 export interface Friendrops {}
@@ -19,7 +19,7 @@ const Friend = () => {
     RoomApi.getRoomDetail(id).then(res => {
       Navigate(
         generatePath(IMRouterPath.Message, {
-          id: res._id
+          id: res.room_id
         })
       )
     })
@@ -28,7 +28,10 @@ const Friend = () => {
   return (
     <div className={styles.friend}>
       {friends?.map(item => (
-        <div className={styles.card} key={item._id} onClick={() => handlerEnterRoom(item._id)}>
+        <div
+          className={styles.card}
+          key={item.user_id}
+          onClick={() => handlerEnterRoom(item.user_id)}>
           {item.name}
         </div>
       ))}

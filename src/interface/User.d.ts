@@ -11,7 +11,7 @@ declare interface IUser {
 	/**
 	 * 用户ID
 	 */
-  _id: string
+  user_id: string
 
 	/**
 	 * 头像

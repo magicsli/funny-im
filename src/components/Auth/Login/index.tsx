@@ -14,7 +14,7 @@ export interface AuthLoginProps extends React.PropsWithChildren {
 
 const AuthLogin = ({ children, autoLogin = true }: AuthLoginProps) => {
   const dispath = useDispatch()
-  const userId = useSelector<RootState>(state => state.user?._id)
+  const userId = useSelector<RootState>(state => state.user?.user_id)
 
   const [loading, setLoading] = useState(() => autoLogin && getToken() && !userId)
 

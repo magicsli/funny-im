@@ -6,7 +6,7 @@ import { RootRouterPath } from '@/router/path'
 
 const initialState: IUser = {
   name: '',
-  _id: '',
+  user_id: '',
   create_time: 0,
   avatar: ''
 }

@@ -4,10 +4,12 @@ import React from 'react'
 import styles from './index.module.scss'
 
 export interface ChatItemProps {
-  item: IChat
+  item: IRoom
 }
 
 const ChatItem = ({ item }: ChatItemProps) => {
+  // const name = item.
+
   return (
     <div className={styles.card}>
       <AvatarGroup
@@ -19,7 +21,7 @@ const ChatItem = ({ item }: ChatItemProps) => {
       />
       <div className={styles['card-content']}>
         <div className={styles['card-header']}>
-          <div className={styles['card-name']}>{item?.title || ''}</div>
+          <div className={styles['card-name']}>{item?.room_id || ''}</div>
           <div className={styles['card-time']}>{autoShowTime(1663483243839)}</div>
         </div>
         <div className={styles['card-info']}>
