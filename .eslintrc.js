@@ -19,10 +19,16 @@ module.exports = {
   },
 
   rules: {
-
     // 0:"off", 1:"warn", 2:"error"
     semi: 0,
-    indent: [2, 2],
+    indent: [
+      2,
+      2,
+      {
+        SwitchCase: 1,
+        ignoredNodes: ['ConditionalExpression'] // eslitnt规则对 switch 与 三元表达式可能会出点问题。 加这个属性避免
+      }
+    ],
     '@typescript-eslint/no-empty-interface': 1,
     '@typescript-eslint/no-empty-function': 1,
     '@typescript-eslint/no-explicit-any': 0,

@@ -1,35 +1,57 @@
 import AvatarGroup from '@/components/AvatarGroup'
+import useUserId from '@/hooks/useUserId'
+import { IMRouterPath } from '@/router/path'
 import { autoShowTime } from '@/utils/time'
-import React from 'react'
+import { maxNumLenght } from '@/utils/tool'
+import classNames from 'classnames'
+import React, { useMemo } from 'react'
+import { generatePath, NavLink } from 'react-router-dom'
 import styles from './index.module.scss'
 
 export interface ChatItemProps {
-  item: IRoom
+  item: IRoomWidthLast
 }
 
 const ChatItem = ({ item }: ChatItemProps) => {
-  // const name = item.
+  const userId = useUserId()
+
+  const { name, avatars } = useMemo(
+    () => ({
+      name: item.secret ? item.members.find(user => user.user_id !== userId)?.name : item.name,
+      avatars: item.members.map(user => user.avatar)
+    }),
+    [item]
+  )
+
+  // 点击卡片跳转至指定的聊天室
+  const roomPath = generatePath(IMRouterPath.Message, {
+    id: item.room_id
+  })
 
   return (
-    <div className={styles.card}>
-      <AvatarGroup
-        size={40}
-        avatars={[
-          'https://d33wubrfki0l68.cloudfront.net/0834d0215db51e91525a25acf97433051f280f2f/c30f5/img/redux.svg',
-          'https://d33wubrfki0l68.cloudfront.net/0834d0215db51e91525a25acf97433051f280f2f/c30f5/img/redux.svg'
-        ]}
-      />
+    <NavLink
+      to={roomPath}
+      className={active =>
+        classNames(styles.card, {
+          [styles['card-active']]: active.isActive
+        })
+      }>
+      <AvatarGroup size={40} avatars={avatars} />
       <div className={styles['card-content']}>
         <div className={styles['card-header']}>
-          <div className={styles['card-name']}>{item?.room_id || ''}</div>
-          <div className={styles['card-time']}>{autoShowTime(1663483243839)}</div>
+          <div className={styles['card-name']}>{name}</div>
+          <div className={styles['card-time']}>
+            {autoShowTime(item.last?.update_time || item.create_time)}
+          </div>
         </div>
         <div className={styles['card-info']}>
-          <div className={styles['card-message']}>我擦汗哦我的请问请问琼文u就</div>
-          <div className={styles['card-tools']}></div>
+          <div className={styles['card-message']}>{item.last?.title}</div>
+          {item.unread ? (
+            <div className={styles['card-tools']}>{maxNumLenght(item.unread)}</div>
+          ) : null}
         </div>
       </div>
-    </div>
+    </NavLink>
   )
 }
 

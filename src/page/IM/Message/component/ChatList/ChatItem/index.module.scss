@@ -1,12 +1,16 @@
 .card {
   display: flex;
   align-items: center;
-  padding: 24px;
+  padding: 20px 16px;
   cursor: pointer;
-  background-color: #434a54;
+  background-color: #24303f;
+
+  &.card-active {
+    background-color: #364860 !important;
+  }
 
   &:hover {
-    background-color: #f4f4f4;
+    background-color: #2a384a;
   }
 
   .card-content {
@@ -25,16 +29,17 @@
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
-        font-size: 18px;
+        font-size: 16px;
         color: #fff;
       }
       .card-time {
-        font-size: 14px;
+        font-size: 12px;
         color: #999;
       }
     }
 
     .card-info {
+      min-height: 20px;
       display: flex;
 
       .card-message {
@@ -45,7 +50,7 @@
         white-space: nowrap;
         text-overflow: ellipsis;
 
-        font-size: 14px;
+        font-size: 12px;
         color: #6b7580;
       }
     }

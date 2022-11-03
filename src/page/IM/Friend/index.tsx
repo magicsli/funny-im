@@ -16,7 +16,8 @@ const Friend = () => {
   }, [])
 
   const handlerEnterRoom = (id: string) => {
-    RoomApi.getRoomDetail(id).then(res => {
+    // 生成/进入 私聊室
+    RoomApi.getSecretRoom(id).then(res => {
       Navigate(
         generatePath(IMRouterPath.Message, {
           id: res.room_id

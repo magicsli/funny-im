@@ -5,15 +5,8 @@ import styles from './index.module.scss'
 
 export interface Roomrops {}
 
-const tranformToChatCard = (room: IRoom) => {
-  return {
-    room_id: room.room_id,
-    avatars: room.members.map(item => item.avatar)
-  }
-}
-
 const ChatList = () => {
-  const [chatList, setChatList] = useState<IRoom[]>([])
+  const [chatList, setChatList] = useState<IRoomWidthLast[]>([])
 
   useEffect(() => {
     // 每个聊天室就是一个聊天卡片
