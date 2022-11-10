@@ -1,23 +1,25 @@
 .card {
   display: flex;
   align-items: center;
-  padding: 20px 16px;
+  padding: 0 16px;
   cursor: pointer;
   background-color: #24303f;
 
   &.card-active {
-    background-color: #364860 !important;
+    background-color: #2a384a !important;
   }
 
   &:hover {
-    background-color: #2a384a;
+    background-color: rgba(41, 55, 74, 0.9);
   }
 
   .card-content {
     flex: 1;
+    height: 100%;
+    padding: 20px 0;
     margin-left: 24px;
     overflow: hidden;
-
+    border-bottom: 1px solid #888;
     .card-header {
       display: flex;
       width: 100%;

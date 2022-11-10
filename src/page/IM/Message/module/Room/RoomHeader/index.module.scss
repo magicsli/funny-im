@@ -1,0 +1,35 @@
+.header {
+  // height: 100px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  .name {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 20px;
+    margin-right: 16px;
+    // font-weight: bold;
+    color: #090909;
+  }
+
+  .online {
+    padding-bottom: 2px;
+    display: flex;
+    align-items: center;
+
+    .status {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: #c6c6c6;
+      margin-right: 6px;
+      &.active {
+        background-color: #52c41a;
+      }
+    }
+  }
+}

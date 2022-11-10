@@ -34,6 +34,15 @@ export class ChatSocketIo {
 
   /**
    * 关闭连接
+   * @tips 在连接聊天socket 前， 必须要连接初始base socket连接， 否则无法连接成功
+   * @returns 当前的socket实例
+   */
+  disconnect() {
+    return this.socket?.disconnect()
+  }
+
+  /**
+   * 关闭通道
    * @returns 当前的socket实例
    */
   close() {

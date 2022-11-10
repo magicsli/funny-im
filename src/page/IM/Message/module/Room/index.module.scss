@@ -1,59 +1,23 @@
-.room {
+.container {
   display: flex;
-  flex-direction: column;
-  width: 320px;
-  background-color: #3a4048;
+  background-color: #f2f7f7;
+}
 
-  .card {
-    display: flex;
-    padding: 24px;
-    cursor: pointer;
-    background-color: #434a54;
+.main {
+  list-style: none;
+  width: 360px;
+  overflow: hidden;
+  // display: block;
+  .li {
+    float: left;
 
-    &:hover {
-      background-color: #f4f4f4;
-    }
+    width: 100px;
+    height: 120px;
+    background-color: aliceblue;
+    border: 1px solid #ef4f57;
 
-    .card-content {
-      flex: 1;
-      margin-left: 24px;
-      overflow: hidden;
-
-      .card-header {
-        display: flex;
-        width: 100%;
-        margin-bottom: 8px;
-        .card-name {
-          width: 0;
-          flex: 1;
-          margin-right: 30px;
-          overflow: hidden;
-          white-space: nowrap;
-          text-overflow: ellipsis;
-          font-size: 18px;
-          color: #fff;
-        }
-        .card-time {
-          font-size: 14px;
-          color: #999;
-        }
-      }
-
-      .card-info {
-        display: flex;
-
-        .card-message {
-          margin-right: 20px;
-          width: 0;
-          flex: 1;
-          overflow: hidden;
-          white-space: nowrap;
-          text-overflow: ellipsis;
-
-          font-size: 14px;
-          color: #6b7580;
-        }
-      }
+    &:nth-child(2) {
+      margin-bottom: 20px;
     }
   }
 }

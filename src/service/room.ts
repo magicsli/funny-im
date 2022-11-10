@@ -13,10 +13,21 @@ class ChatApi extends Request {
   /**
    * 获取聊天室详情
    */
-  getSecretRoom(id: string) {
+  createSecretRoom(id: string) {
     return this.get<IRoom>('/secret', {
       params: {
         id
+      }
+    })
+  }
+
+  /**
+   * 获取聊天室详情
+   */
+  getRoomDetail(room_id: string) {
+    return this.get<IRoom>('/detail', {
+      params: {
+        room_id
       }
     })
   }
