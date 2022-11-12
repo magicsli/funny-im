@@ -1,6 +1,6 @@
 import AvatarGroup from '@/components/AvatarGroup'
 import useUserId from '@/hooks/useUserId'
-import { IMRouterPath } from '@/router/path'
+import { IMRouterPath, MessageRouterPath } from '@/router/path'
 import { autoShowTime } from '@/utils/time'
 import { maxNumLenght } from '@/utils/tool'
 import classNames from 'classnames'
@@ -24,7 +24,7 @@ const ChatItem = ({ item }: ChatItemProps) => {
   )
 
   // 点击卡片跳转至指定的聊天室
-  const roomPath = generatePath(IMRouterPath.Message, {
+  const roomPath = generatePath(MessageRouterPath.Room, {
     id: item.room_id
   })
 

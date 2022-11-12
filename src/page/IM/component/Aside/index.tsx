@@ -4,7 +4,6 @@ import { IMRouterPath } from '@/router/path'
 import { Avatar, Tooltip } from 'antd'
 import cs from 'classnames'
 import { useSelector } from 'react-redux'
-import { useLocation, useNavigate } from 'react-router'
 import { NavLink } from 'react-router-dom'
 import styles from './index.module.scss'
 

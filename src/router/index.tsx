@@ -8,8 +8,12 @@ import Register from '@/page/Register'
 import MessageLoading from '@/page/IM/Message/component/Loading'
 
 import { createBrowserRouter, Navigate } from 'react-router-dom'
-import { IMRouterPath, RootRouterPath } from './path'
+import { IMRouterPath, MessageRouterPath, RootRouterPath } from './path'
 import AuthLogin from '@/components/Auth/Login'
+
+// message下模块内容
+import MessageEntry from '@/page/IM/Message/Entry'
+import MessageRoom from '@/page/IM/Message/Room'
 
 const Message = React.lazy(() => import('@/page/IM/Message'))
 
@@ -30,7 +34,17 @@ export const router = createBrowserRouter([
           <React.Suspense fallback={<MessageLoading />}>
             <Message />
           </React.Suspense>
-        )
+        ),
+        children: [
+          {
+            index: true,
+            element: <MessageEntry />
+          },
+          {
+            path: MessageRouterPath.Entry,
+            element: <MessageRoom />
+          }
+        ]
       },
       {
         path: IMRouterPath.firend,

@@ -11,7 +11,15 @@ export enum RootRouterPath {
  * IM 模型下路由
  */
 export enum IMRouterPath {
-  Message = '/IM/message/:id',
+  Message = '/IM/message',
   firend = '/IM/friend',
   me = '/IM/me'
+}
+
+/**
+ * IM - Message 模型下路由
+ */
+export enum MessageRouterPath {
+  Entry = '/IM/message', // entry 默认路由
+  Room = '/IM/message/:id' // 聊天室内容
 }

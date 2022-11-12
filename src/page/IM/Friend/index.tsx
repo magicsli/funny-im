@@ -1,8 +1,8 @@
-import { IMRouterPath } from '@/router/path'
+import { MessageRouterPath } from '@/router/path'
 import RoomApi from '@/service/room'
 import userApi from '@/service/user'
 import React, { useEffect, useState } from 'react'
-import { useNavigate, generatePath, parsePath } from 'react-router'
+import { useNavigate, generatePath } from 'react-router'
 import styles from './index.module.scss'
 
 export interface Friendrops {}
@@ -19,7 +19,7 @@ const Friend = () => {
     // 生成/进入 私聊室
     RoomApi.createSecretRoom(id).then(res => {
       Navigate(
-        generatePath(IMRouterPath.Message, {
+        generatePath(MessageRouterPath.Room, {
           id: res.room_id
         })
       )
