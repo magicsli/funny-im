@@ -14,11 +14,12 @@ declare interface IRoomWidthLast extends IRoom {
 
 declare interface IChat {
   chat_id: string
-  title: string
-  update_time?: number
-  creatorId: string
-  // members: IMember[]
-  lastUpdateMessage?: string // 最后更新信息
+  from: string // 发送方
+  read_list: string[] // 已读的成员
+  type: string // 消息类型
+  content: string // 消息内容
+  room_id: string // 聊天室Id
+  create_time: number // 消息发送时间
 }
 
 interface IMember {

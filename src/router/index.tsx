@@ -41,7 +41,7 @@ export const router = createBrowserRouter([
             element: <MessageEntry />
           },
           {
-            path: MessageRouterPath.Entry,
+            path: MessageRouterPath.Room,
             element: <MessageRoom />
           }
         ]

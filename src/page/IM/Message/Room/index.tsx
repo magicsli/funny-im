@@ -4,11 +4,14 @@ import styles from './index.module.scss'
 import { useParams } from 'react-router'
 import { chatSocket } from '@/service/socket/chat'
 import { useRoomDetail, RoomContext } from '../service/useRoomDetail'
+import RichText from './RichText'
+import useChatList from '../service/useChatList'
 
 const Room = () => {
   const { id: roomId } = useParams()
 
   const detail = useRoomDetail(roomId)
+  const { chatList, pushMessage } = useChatList(roomId)
 
   useEffect(() => {
     if (roomId) {
@@ -25,14 +28,14 @@ const Room = () => {
         <RoomHeader />
 
         <ul className={styles.main}>
-          <li className={styles.li}>1</li>
-          <li className={styles.li}>2</li>
-          <li className={styles.li}>3</li>
-          <li className={styles.li}>4</li>
-          <li className={styles.li}>5</li>
+          {chatList.map(item => (
+            <div>{item.content}</div>
+          ))}
         </ul>
 
-        <div className={styles.input}></div>
+        <div className={styles.input}>
+          <RichText onPush={pushMessage} />
+        </div>
       </div>
     </RoomContext.Provider>
   )

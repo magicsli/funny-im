@@ -32,8 +32,24 @@ class ChatApi extends Request {
     })
   }
 
-  getChatList() {
-    return this.post<IChat[]>('/chats')
+  /**
+   * 获取聊天记录
+   * @returns 聊天信息列表
+   */
+  getChatList(params: { limit?: number; page: number; room_id: string }) {
+    return this.get<IChat[]>('/chat', {
+      params
+    })
+  }
+
+  /**
+   * 发送消息
+   */
+  pushMessage(room_id: string, message: string) {
+    return this.post<IChat>('/chat', {
+      room_id,
+      message
+    })
   }
 }
 
