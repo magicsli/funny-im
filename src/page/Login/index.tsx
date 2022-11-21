@@ -1,3 +1,4 @@
+import Meteor from '@/components/Meteor'
 import { replace } from '@/redux/user'
 import { RootRouterPath } from '@/router/path'
 import userApi from '@/service/user'
@@ -61,6 +62,7 @@ const Login = () => {
 
   return (
     <div className={styles.container}>
+      <Meteor />
       <div className={styles.card}>
         <Form name='control-hooks' requiredMark={false} form={form} onFinish={handleLogin}>
           <Form.Item
