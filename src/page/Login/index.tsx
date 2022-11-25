@@ -1,3 +1,4 @@
+import LoadingContainer from '@/components/LoadingContainer'
 import Meteor from '@/components/Meteor'
 import { replace } from '@/redux/user'
 import { RootRouterPath } from '@/router/path'
@@ -61,7 +62,7 @@ const Login = () => {
   }
 
   return (
-    <div className={styles.container}>
+    <LoadingContainer className={styles.container} loading>
       <Meteor />
       <div className={styles.card}>
         <Form name='control-hooks' requiredMark={false} form={form} onFinish={handleLogin}>
@@ -101,7 +102,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-    </div>
+    </LoadingContainer>
   )
 }
 
