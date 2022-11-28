@@ -1,11 +1,11 @@
 .container {
+  width: 100%;
   display: flex;
   background-color: #f2f7f7;
 }
 
 .main {
   list-style: none;
-  width: 360px;
   overflow: hidden;
   // display: block;
   .li {

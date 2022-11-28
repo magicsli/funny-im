@@ -13,12 +13,19 @@
   .cotnent {
     max-width: 67%;
     padding: 12px;
-    background-color: #fff;
-    margin-left: 20px;
+    background-color: #fcfcfc;
+    margin-left: 16px;
     border-radius: 8px;
 
     &::before {
       content: '';
+      position: absolute;
+      right: 100%;
+      top: 10px;
+      width: 0;
+      height: 0;
+      border: 10px solid transparent;
+      border-left: 10px solid #fcfcfc;
     }
   }
 }
