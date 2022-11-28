@@ -6,6 +6,7 @@ import { chatSocket } from '@/service/socket/chat'
 import { useRoomDetail, RoomContext } from '../service/useRoomDetail'
 import RichText from './RichText'
 import useChatList from '../service/useChatList'
+import RoomContent from './RoomContent'
 
 const Room = () => {
   const { id: roomId } = useParams()
@@ -27,11 +28,7 @@ const Room = () => {
       <div className={styles.contianer}>
         <RoomHeader />
 
-        <ul className={styles.main}>
-          {chatList.map(item => (
-            <div>{item.content}</div>
-          ))}
-        </ul>
+        <RoomContent list={chatList} />
 
         <div className={styles.input}>
           <RichText onPush={pushMessage} />

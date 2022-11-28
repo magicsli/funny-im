@@ -7,7 +7,7 @@ export const useRoomDetail = (roomId?: string) => {
   useEffect(() => {
     if (roomId) {
       RoomApi.getRoomDetail(roomId).then(res => {
-        console.log('getRoomDetail', res)
+        setRoom(res)
       })
     } else {
       setRoom(null)

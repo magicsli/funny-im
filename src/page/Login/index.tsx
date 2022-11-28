@@ -62,7 +62,7 @@ const Login = () => {
   }
 
   return (
-    <LoadingContainer className={styles.container} loading>
+    <div className={styles.container}>
       <Meteor />
       <div className={styles.card}>
         <Form name='control-hooks' requiredMark={false} form={form} onFinish={handleLogin}>
@@ -102,7 +102,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-    </LoadingContainer>
+    </div>
   )
 }
 

@@ -31,6 +31,7 @@ const navList = [
 export type Asiderops = {}
 const Aside = () => {
   const userInfo = useSelector<RootState, IUser>(state => state.user)
+  console.log('userInfo', userInfo)
 
   return (
     <aside className={styles.aside}>

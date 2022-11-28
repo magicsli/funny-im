@@ -41,11 +41,11 @@ const ChatItem = ({ item }: ChatItemProps) => {
         <div className={styles['card-header']}>
           <div className={styles['card-name']}>{name}</div>
           <div className={styles['card-time']}>
-            {autoShowTime(item.last?.update_time || item.create_time)}
+            {autoShowTime(item.last?.create_time || item.create_time)}
           </div>
         </div>
         <div className={styles['card-info']}>
-          <div className={styles['card-message']}>{item.last?.title}</div>
+          <div className={styles['card-message']}>{item.last?.content}</div>
           {item.unread ? (
             <div className={styles['card-tools']}>{maxNumLenght(item.unread)}</div>
           ) : null}
