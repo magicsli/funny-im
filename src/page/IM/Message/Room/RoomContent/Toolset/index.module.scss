@@ -1,24 +1,75 @@
 .toolset {
+  position: relative;
   display: flex;
   margin-bottom: 20px;
+  padding: 0 40px;
 
-  &.toolset-self {
-    justify-content: flex-end;
-  }
-
-  .avatar-self {
-    align-self: flex-end;
+  .avatar {
+    position: absolute;
+    top: 0;
+    // left: 0;
   }
 
   .cotnent {
     max-width: 67%;
-    padding: 12px;
-    background-color: #fff;
-    margin-left: 20px;
-    border-radius: 8px;
+    margin: 0 16px;
+    border: none;
 
-    &::before {
-      content: '';
+    .popver {
+      position: relative;
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 10px;
+        width: 0;
+        height: 0;
+        border: 10px solid transparent;
+      }
+    }
+
+    .time {
+      margin-top: 4px;
+      text-align: right;
+      font-size: 12px;
+      color: #888;
+    }
+  }
+
+  &.toolset-left {
+    justify-content: flex-start;
+
+    .avatar {
+      left: 0;
+    }
+
+    .popver {
+      background-color: #fcfcfc;
+
+      &::before {
+        right: 100%;
+        border-right: 10px solid #fcfcfc;
+      }
+    }
+  }
+
+  &.toolset-right {
+    justify-content: flex-end;
+
+    .avatar {
+      right: 0;
+    }
+
+    .popver {
+      background-color: #ade792;
+
+      &::before {
+        left: 100%;
+        border-left: 10px solid #ade792;
+      }
     }
   }
 }

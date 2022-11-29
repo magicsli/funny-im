@@ -25,7 +25,7 @@ const Room = () => {
 
   return (
     <RoomContext.Provider value={detail}>
-      <div className={styles.contianer}>
+      <div className={styles.container}>
         <RoomHeader />
 
         <RoomContent list={chatList} />
