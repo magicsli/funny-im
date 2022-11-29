@@ -44,12 +44,12 @@ export const NumberToCN = (num: number) => {
  * @param timer 代转换的时间戳
  * @example
  *  // - 距离当前时间
- *  autoShowTime(** 不同年 **) => '2022-08-15 16:23'
- *  autoShowTime(** 同年 但 不同月 **) => '08-15 16:23'
- *  autoShowTime(** 同月 但 不同星期 **) => '08-15 16:23'
- *  autoShowTime(** 同星期 但 不同日 **) => '星期四 16:23'
- *  autoShowTime(** 同日 **) => '16:23'
- *  autoShowTime(** 最近五分钟 **) => '刚刚'
+ *  autoShowTime( 不同年 ) => '2022-08-15 16:23'
+ *  autoShowTime( 同年 但 不同月 ) => '08-15 16:23'
+ *  autoShowTime( 同月 但 不同星期 ) => '08-15 16:23'
+ *  autoShowTime( 同星期 但 不同日 ) => '星期四 16:23'
+ *  autoShowTime( 同日 ) => '16:23'
+ *  autoShowTime( 最近五分钟 ) => '刚刚'
  */
 export const autoShowTime = (timer: Parameters<typeof dayjs>[0]) => {
   const now = dayjs()
@@ -61,7 +61,7 @@ export const autoShowTime = (timer: Parameters<typeof dayjs>[0]) => {
     return showTime.format('MM-DD HH:mm')
   } else if (!showTime.isSame(now, 'day')) {
     return `星期${NumberToCN(showTime.day())} ${showTime.format('HH:mm')}`
-  } else if (showTime.diff(now, 'm') <= 5) {
+  } else if (Math.abs(showTime.diff(now, 'm')) <= 5) {
     return '刚刚'
   } else {
     return showTime.format('HH:mm')

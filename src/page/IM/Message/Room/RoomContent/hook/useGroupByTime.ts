@@ -1,4 +1,3 @@
-import { autoShowTime } from '@/utils/time'
 import dayjs from 'dayjs'
 import { useMemo } from 'react'
 
@@ -16,9 +15,9 @@ export default function useGroupByTime(list?: IChat[]) {
     for (let index = list.length - 1; index >= 0; index--) {
       const chat = list[index]
 
-      if (!lastTimeSlot || lastTimeSlot.diff(chat.create_time, 'h') > 2) {
+      if (!lastTimeSlot || Math.abs(lastTimeSlot.diff(chat.create_time, 'h')) > 2) {
         groups.unshift({
-          day: autoShowTime(chat.create_time),
+          day: chat.create_time,
           list: [chat]
         })
       } else {
