@@ -1,3 +1,4 @@
+import React from 'react'
 import useGroupByTime from './hook/useGroupByTime'
 import styles from './index.module.scss'
 import Toolset from './Toolset'
@@ -12,12 +13,12 @@ const RoomContent = ({ list }: RoomContentProps) => {
   return (
     <ul className={styles.container}>
       {groupByTime.map(item => (
-        <>
+        <React.Fragment key={item.day}>
           <li className={styles['cut-line']}>- {item.day} -</li>
           {item.list.map(chat => (
             <Toolset key={chat.chat_id} item={chat} />
           ))}
-        </>
+        </React.Fragment>
       ))}
     </ul>
   )
