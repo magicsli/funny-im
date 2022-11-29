@@ -51,7 +51,7 @@ export const NumberToCN = (num: number) => {
  *  autoShowTime(** 同日 **) => '16:23'
  *  autoShowTime(** 最近五分钟 **) => '刚刚'
  */
-export const autoShowTime = (timer: number) => {
+export const autoShowTime = (timer: Parameters<typeof dayjs>[0]) => {
   const now = dayjs()
   const showTime = dayjs(timer)
 

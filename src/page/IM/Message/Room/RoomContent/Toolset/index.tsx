@@ -13,7 +13,7 @@ export interface ToolsetProps {
 }
 
 const Toolset = ({ item }: ToolsetProps) => {
-  const isSameHour = dayjs().isSame(item.create_time, 'hour')
+  // const isSameHour = dayjs().isSame(item.create_time, 'hour')
   const userId = useUserId()
   const roomDetail = useContext(RoomContext)
 
@@ -32,7 +32,7 @@ const Toolset = ({ item }: ToolsetProps) => {
         <div className={styles.popver}>
           <Message item={item} />
         </div>
-        {!isSameHour ? <div className={styles.time}>{autoShowTime(item.create_time)}</div> : null}
+        {/* {!isSameHour ? <div className={styles.time}>{autoShowTime(item.create_time)}</div> : null} */}
       </div>
     </li>
   )

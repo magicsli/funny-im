@@ -14,4 +14,11 @@ li {
   &::-webkit-scrollbar {
     display: none;
   }
+
+  .cut-line {
+    margin: 30px;
+    font-size: 14px;
+    color: #888;
+    text-align: center;
+  }
 }
