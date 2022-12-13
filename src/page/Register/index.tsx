@@ -1,4 +1,4 @@
-import { replace } from '@/redux/user'
+import { login } from '@/redux/user'
 import { RootRouterPath } from '@/router/path'
 import userApi from '@/service/user'
 import { Button, Form, Input, message } from 'antd'
@@ -32,8 +32,8 @@ const Register = () => {
         password
       })
       .then(result => {
-        dispath(replace(result))
-        message.success('登录成功！！！')
+        message.success('注册成功！')
+        dispath(login(result))
         Navigate(RootRouterPath.IM)
       })
       .finally(() => {

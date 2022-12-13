@@ -1,9 +1,11 @@
 import { publish } from '@/utils/pubsub'
 import { PubSocket } from '@/utils/pubsub/typings'
 import { io, Socket } from 'socket.io-client'
+import { EMIT_KEY, EMIT_VALUE } from './Emit'
 
 export class SocketIo {
-  socket?: Socket
+  socket: Socket
+  userId?: string
 
   name = 'Base'
 
@@ -14,17 +16,20 @@ export class SocketIo {
 
     this.socket?.on('connect', () => {
       console.log(`SOCKET ${this.name} CONNTECTION！！！ \n\t KEY：${this.socket?.id}\n`)
+      this.registerListen()
+      this.socket.emit(EMIT_KEY.active, this.userId)
     })
-
-    this.registerListen()
   }
 
   /**
    * 连接socket
+   * @param userId 当前连接的用户ID
    * @returns 当前的socket实例
    */
-  connect() {
-    return this.socket?.connect()
+  connect(userId: string) {
+    this.userId = userId
+    const connection = this.socket.connect()
+    return connection
   }
 
   /**
@@ -32,7 +37,8 @@ export class SocketIo {
    * @returns 当前的socket实例
    */
   close() {
-    return this.socket?.close()
+    this.userId = undefined
+    return this.socket.close()
   }
 
   /**
@@ -40,7 +46,8 @@ export class SocketIo {
    * @returns 当前的socket实例
    */
   disconnect() {
-    return this.socket?.disconnect()
+    this.userId = undefined
+    return this.socket.disconnect()
   }
 
   /**
@@ -50,15 +57,31 @@ export class SocketIo {
   registerListen() {
     // 将pubsocket中的所有类型全局注入至chat模块中
     Object.keys(PubSocket).forEach(key => {
-      const checkModule = /^Base_/i.test(key)
+      const checkModule = /^SOCKET_/i.test(key)
 
       const code = /_(\d+)$/i.exec(key)
       if (checkModule && code) {
         this.socket?.on(code[1], socketMessage => {
+          console.log(`SOCKET事件 【${key}】`, socketMessage)
+
           publish(key as PubSocket, socketMessage)
         })
       }
     })
+  }
+
+  /**
+   * 向服务端派发事件
+   * @param key 事件关键字
+   * @param value 传输的值
+   * @returns 请求结果 false | socket实例
+   */
+  emit<T extends EMIT_KEY>(key: T, value: EMIT_VALUE[T]) {
+    if (!this.socket.connected) {
+      return false
+    }
+
+    return this.socket!.emit(key, value)
   }
 }
 

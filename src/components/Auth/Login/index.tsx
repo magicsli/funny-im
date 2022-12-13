@@ -1,5 +1,6 @@
+import LoadingContainer from '@/components/LoadingContainer'
 import { RootState } from '@/redux'
-import { replace } from '@/redux/user'
+import { login } from '@/redux/user'
 import { RootRouterPath } from '@/router/path'
 import userApi from '@/service/user'
 import { getToken } from '@/utils/tool'
@@ -16,25 +17,21 @@ const AuthLogin = ({ children, autoLogin = true }: AuthLoginProps) => {
   const dispath = useDispatch()
   const userId = useSelector<RootState>(state => state.user?.user_id)
 
-  const [loading, setLoading] = useState(() => autoLogin && getToken() && !userId)
+  const [loading, setLoading] = useState(() => Boolean(autoLogin && getToken() && !userId))
 
   useLayoutEffect(() => {
     if (loading) {
       userApi
         .update()
         .then(res => {
-          dispath(replace(res))
+          dispath(login(res))
         })
         .finally(() => setLoading(false))
     }
   }, [])
 
-  if (loading) {
-    return <div>loading...</div>
-  }
-
-  if (userId) {
-    return children
+  if (userId || loading) {
+    return <LoadingContainer loading={loading}>{children}</LoadingContainer>
   } else {
     return <Navigate to={RootRouterPath.Login} />
   }

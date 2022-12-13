@@ -15,7 +15,7 @@ const RoomContent = ({ list }: RoomContentProps) => {
     <ul className={styles.container}>
       {groupByTime.map(item => (
         <React.Fragment key={item.day}>
-          <li className={styles['cut-line']}>- {autoShowTime(item.day)} -</li>
+          <li className={styles['cut-line']}>{autoShowTime(item.day)}</li>
           {item.list.map(chat => (
             <Toolset key={chat.chat_id} item={chat} />
           ))}

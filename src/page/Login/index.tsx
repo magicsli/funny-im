@@ -1,6 +1,5 @@
-import LoadingContainer from '@/components/LoadingContainer'
 import Meteor from '@/components/Meteor'
-import { replace } from '@/redux/user'
+import { login } from '@/redux/user'
 import { RootRouterPath } from '@/router/path'
 import userApi from '@/service/user'
 import { Button, Form, Input, message } from 'antd'
@@ -8,7 +7,6 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router'
 import styles from './index.module.scss'
-
 export interface LoginForm {
   username: string
   password: string
@@ -35,7 +33,7 @@ const Login = () => {
       })
       .then(result => {
         message.success('登录成功！！！')
-        dispath(replace(result))
+        dispath(login(result))
         Navigate(RootRouterPath.IM)
       })
       .catch(error => {
@@ -56,7 +54,7 @@ const Login = () => {
   const handleVisitor = () => {
     userApi.visitor().then(result => {
       message.success('登录成功！！！')
-      dispath(replace(result))
+      dispath(login(result))
       Navigate(RootRouterPath.IM)
     })
   }

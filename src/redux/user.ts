@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { router } from '@/router'
 import { RootRouterPath } from '@/router/path'
-
+import { socket } from '@/utils/socket'
 
 const initialState: IUser = {
   name: '',
@@ -34,7 +34,8 @@ export const userSlice = createSlice({
      * @param action 新的用户状态
      * @returns
      */
-    replace(_state, action: PayloadAction<IUser>) {
+    login(_state, action: PayloadAction<IUser>) {
+      socket.connect(action.payload.user_id)
       return action.payload
     },
 
@@ -45,11 +46,12 @@ export const userSlice = createSlice({
     logout() {
       // 退出登录重定向至 登录页
       router.navigate(RootRouterPath.Login)
+      socket.close()
       return initialState
     }
   }
 })
 
-export const { update, logout, replace } = userSlice.actions
+export const { update, logout, login } = userSlice.actions
 
 export default userSlice.reducer

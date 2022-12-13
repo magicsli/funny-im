@@ -4,7 +4,8 @@
  */
 export enum PubSocket {
   // 聊天模块
-  BASE_MES_1 = 'BASE_SEND_MES_1' // 发送消息
+  SOCKET_MES_1 = 'SOCKET_MES_1', // 发送消息
+  SOCKET_ACTIVE_200 = 'SOCKET_ACTIVE_200' // socket绑定成功
 }
 
 /**
@@ -15,6 +16,7 @@ export enum PubLocal {
 }
 
 export interface PubSubMap {
-  [PubSocket.BASE_MES_1]: string
+  [PubSocket.SOCKET_MES_1]: string
+  [PubSocket.SOCKET_ACTIVE_200]: string
   [PubLocal.TEST]: string
 }
