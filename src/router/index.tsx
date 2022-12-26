@@ -5,7 +5,6 @@ import Friend from '@/page/IM/Friend'
 import Me from '@/page/IM/Me'
 import Login from '@/page/Login'
 import Register from '@/page/Register'
-import MessageLoading from '@/page/IM/Message/component/Loading'
 
 import { createBrowserRouter, Navigate } from 'react-router-dom'
 import { IMRouterPath, MessageRouterPath, RootRouterPath } from './path'
@@ -14,6 +13,7 @@ import AuthLogin from '@/components/Auth/Login'
 // message下模块内容
 import MessageEntry from '@/page/IM/Message/Entry'
 import MessageRoom from '@/page/IM/Message/Room'
+import LoadingContainer from '@/components/LoadingContainer'
 
 const Message = React.lazy(() => import('@/page/IM/Message'))
 
@@ -31,7 +31,7 @@ export const router = createBrowserRouter([
       {
         path: IMRouterPath.Message,
         element: (
-          <React.Suspense fallback={<MessageLoading />}>
+          <React.Suspense fallback={<LoadingContainer loading />}>
             <Message />
           </React.Suspense>
         ),
