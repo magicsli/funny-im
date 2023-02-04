@@ -1,10 +1,10 @@
 import AvatarGroup from '@/components/AvatarGroup'
 import useUserId from '@/hooks/useUserId'
-import { IMRouterPath, MessageRouterPath } from '@/router/path'
+import { MessageRouterPath } from '@/router/path'
 import { autoShowTime } from '@/utils/time'
 import { maxNumLenght } from '@/utils/tool'
 import classNames from 'classnames'
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import { generatePath, NavLink } from 'react-router-dom'
 import styles from './index.module.scss'
 

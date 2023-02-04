@@ -6,7 +6,7 @@
   background-color: #24303f;
 
   &.card-active {
-    background-color: #2a384a !important;
+    background-color: $theme !important;
   }
 
   &:hover {

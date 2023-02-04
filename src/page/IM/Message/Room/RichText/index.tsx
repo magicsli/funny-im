@@ -1,5 +1,5 @@
-import { Input } from 'antd'
-import { useState } from 'react'
+import { ConfigProvider, Input } from 'antd'
+import { useCallback, useState } from 'react'
 import styles from './index.module.scss'
 
 export interface RichTextProps {
@@ -9,20 +9,26 @@ export interface RichTextProps {
 const RichText = ({ onPush }: RichTextProps) => {
   const [message, setMessage] = useState('')
 
-  const handlePush = () => {
-    onPush(message).then(res => {
-      res && setMessage('')
-    })
-  }
+  const handlePush = useCallback(() => {
+    onPush(message)
+  }, [message])
 
   return (
     <div className={styles.contianer}>
-      <Input
-        value={message}
-        onChange={e => setMessage(e.target.value?.trim())}
-        onPressEnter={handlePush}
-        type='text'
-      />
+      <ConfigProvider
+        theme={{
+          token: {
+            colorPrimary: '#00b96b'
+          }
+        }}>
+        <Input
+          type='text'
+          className={styles.input}
+          value={message}
+          onChange={e => setMessage(e.target.value)}
+          onPressEnter={handlePush}
+        />
+      </ConfigProvider>
     </div>
   )
 }

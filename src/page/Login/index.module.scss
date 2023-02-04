@@ -69,7 +69,11 @@
       .ant-input {
         background-color: transparent;
         color: $t-light;
+        &::placeholder {
+          color: rgba(198, 198, 198, 0.658);
+        }
       }
+
       .ant-input-suffix .ant-input-password-icon.anticon {
         color: $t-light;
       }

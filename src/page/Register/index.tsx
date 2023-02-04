@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router'
 import styles from './index.module.scss'
+import Meteor from '@/components/Meteor'
 
 export interface RegisterForm {
   username: string
@@ -47,6 +48,7 @@ const Register = () => {
 
   return (
     <div className={styles.container}>
+      <Meteor />
       <div className={styles.card}>
         <Form name='control-hooks' form={form} onFinish={handleRegister}>
           <Form.Item
