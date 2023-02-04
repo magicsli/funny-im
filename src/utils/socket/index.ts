@@ -1,5 +1,5 @@
 import { publish } from '@/utils/pubsub'
-import { PubSocket } from '@/utils/pubsub/typings'
+import { PubSocket } from '@/utils/socket/pub'
 import { io, Socket } from 'socket.io-client'
 import { EMIT_KEY, EMIT_VALUE } from './Emit'
 
@@ -48,6 +48,24 @@ export class SocketIo {
   disconnect() {
     this.userId = undefined
     return this.socket.disconnect()
+  }
+
+  /**
+   * 注册监听事件
+   * @returns 销毁这个事件的监听
+   */
+  on<T = any>(key: string, handle: (e: T) => void) {
+    this.socket?.on(key, handle)
+    return () => {
+      this.socket.removeListener(key, handle)
+    }
+  }
+
+  /**
+   * 注册一个一次性的监听事件， 接受完后自动销毁
+   */
+  once<T = any>(key: string, handle: (e: T) => void) {
+    return this.socket?.once(key, handle)
   }
 
   /**
