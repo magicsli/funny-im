@@ -29,6 +29,13 @@ const FREE_STURN_SERVERS = [
  */
 export default class RTC {
   peer?: RTCPeerConnection
+
+  // 本地（发送端） 数据渠道
+  localChannels: Record<string, RTCDataChannel> = {}
+
+  // 远端（接收端） 数据渠道
+  serviceChannels: Record<string, RTCDataChannel> = {}
+
   constructor(options?: RTCConfiguration) {
     this.peer = new RTCPeerConnection({
       iceServers: FREE_STURN_SERVERS,
@@ -42,7 +49,7 @@ export default class RTC {
    */
   async answerOffer(offer: RTCSessionDescriptionInit) {
     if (!this.peer) {
-      throw new Error('peerConnection 出现异常')
+      throw new Error('[answerOffer] peerConnection 出现异常')
     }
     const remoteDesc = new RTCSessionDescription(offer)
     await this.peer.setRemoteDescription(remoteDesc)
@@ -56,7 +63,7 @@ export default class RTC {
    */
   async createOffer(options?: RTCOfferOptions) {
     if (!this.peer) {
-      throw new Error('peerConnection 出现异常')
+      throw new Error('[createOffer] peerConnection 出现异常')
     }
     const offer = await this.peer.createOffer(options)
     await this.peer.setLocalDescription(offer)
@@ -68,10 +75,48 @@ export default class RTC {
    */
   async setRemote(offer: RTCSessionDescriptionInit) {
     if (!this.peer) {
-      throw new Error('peerConnection 出现异常')
+      throw new Error('[setRemote] peerConnection 出现异常')
     }
     const remoteDesc = new RTCSessionDescription(offer)
     await this.peer.setRemoteDescription(remoteDesc)
     return true
+  }
+
+  /**
+   * ice候选人触发
+   * @param handler 处理函数
+   */
+  onicecandidate(handler: RTCPeerConnection['onicecandidate']) {
+    if (!this.peer) {
+      throw new Error('[onicecandidate] peerConnection 出现异常')
+    }
+
+    this.peer.onicecandidate = handler
+  }
+
+  /**
+   * 数据渠道触发
+   * @param handler 处理函数
+   */
+  ondataChannel(handler?: (e: RTCDataChannelEvent) => void) {
+    if (!this.peer) {
+      throw new Error('[ondataChannel] peerConnection 出现异常')
+    }
+
+    this.peer.ondatachannel = event => {
+      if (event.channel) {
+        this.serviceChannels[event.channel.label] = event.channel
+        handler && handler(event)
+      }
+    }
+  }
+
+  createDataChannel(...params: Parameters<RTCPeerConnection['createDataChannel']>) {
+    if (!this.peer) {
+      throw new Error('[createDataChannel] peerConnection 出现异常')
+    }
+
+    const dataChannel = this.peer.createDataChannel(...params)
+    this.localChannels[dataChannel.label] = dataChannel
   }
 }

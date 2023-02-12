@@ -7,6 +7,7 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router'
 import styles from './index.module.scss'
+import { useAsyncEffect } from 'ahooks'
 export interface LoginForm {
   username: string
   password: string
@@ -20,6 +21,64 @@ const Login = () => {
   const [loading, setLoading] = useState(false)
 
   const Navigate = useNavigate()
+
+  useAsyncEffect(async () => {
+    const peer = new RTCPeerConnection({
+      iceCandidatePoolSize: 4,
+      iceServers: [{ urls: 'stun:stun1.l.google.com:19302', username: '', credential: '' }]
+    })
+    const peer2 = new RTCPeerConnection({
+      iceCandidatePoolSize: 4,
+      iceServers: [
+        { urls: 'stun:stun1.l.google.com:19302', username: '', credential: '' },
+        {
+          urls: 'stun:turn.mywebrtc.com'
+        }
+      ]
+    })
+    const data1 = peer.createDataChannel('213')
+
+    const offer = await peer.createOffer()
+    await peer.setLocalDescription(offer)
+    await peer2.setRemoteDescription(offer)
+
+    const answer = await peer2.createAnswer()
+    await peer2.setLocalDescription(answer)
+    await peer.setRemoteDescription(answer)
+
+    peer.onconnectionstatechange = e => {
+      console.log('onconnectionstatechange', e)
+    }
+
+    peer2.onconnectionstatechange = e => {
+      console.log('onconnectionstatechange', e)
+    }
+
+    peer.onicecandidate = ice => {
+      console.log('peer ice', ice)
+
+      ice.candidate && peer2.addIceCandidate(ice.candidate)
+    }
+
+    peer2.onicecandidate = ice => {
+      console.log('peer2 ice', ice)
+
+      ice.candidate && peer.addIceCandidate(ice.candidate)
+    }
+
+    data1.onopen = event => {
+      console.log('peer2 onopen', event)
+
+      data1.send('meesage')
+    }
+
+    peer2.ondatachannel = data => {
+      console.log('ondatachannel', data)
+      data.channel.onmessage = mes => {
+        console.log('onmessage', mes)
+      }
+    }
+  }, [])
 
   const handleLogin = (fromData: LoginForm) => {
     const { username, password } = fromData

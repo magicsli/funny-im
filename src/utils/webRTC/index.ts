@@ -19,26 +19,42 @@ class UtilRTC extends RTC {
    * 建立连接
    * @returns 当前获取的媒体流
    */
-  async connect() {
+  async connect(
+    options: {
+      dataChannel?: { label: string; init?: RTCDataChannelInit }
+      needDataChannel?: boolean
+    } = {}
+  ) {
     if (!socket.socket.connected) {
       throw new Error('socket 未连接！ 无法进行RTC信令交换')
     }
 
+    const {
+      needDataChannel = true,
+      dataChannel = {
+        label: 'message'
+      }
+    } = options
+
+    // 注： 数据渠道必须要在连接之前建立， 否则后续就不会触发ICE事件。。。
+    if (needDataChannel) {
+      this.createDataChannel(dataChannel.label, dataChannel.init)
+    }
+
     const offer = await this.createOffer()
-    // 向socket发送连接
+    // 向socket发送offer
     socket.emit(EMIT_KEY.rtc_create, offer)
+
+    // 等待响应
     socket.once<RTCSessionDescriptionInit>(RTCSocket.RTC_ACCEPT, answerOffer => {
       this.setRemote(answerOffer)
     })
-  }
 
-  // async on(cofirm?: () => Promise<boolean>) {
-  //   if (!cofirm || (await cofirm())) {
-  //     socket.on<RTCSessionDescriptionInit>(RTCSocket.RTC_ACCEPT, answerOffer => {
-  //       this.setRemote(answerOffer)
-  //     })
-  //   }
-  // }
+    this.onicecandidate(event => {
+      // 向socket发送 ice候选完成连接
+      event.candidate && socket.emit(EMIT_KEY.rtc_icecandidate, event.candidate)
+    })
+  }
 
   /**
    * 建立音视频连接

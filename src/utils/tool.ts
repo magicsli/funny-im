@@ -31,6 +31,37 @@ export const maxNumLenght = (num: number, length = 2): string => {
 }
 
 /**
+ *  等待执行次数完成的回调
+ * @param step 等待次数
+ * @param callback 回调函数
+ * @example
+ *  {
+ *    const waitFunc = waitAll(2, handleSomething)
+ *    listen1(() => {
+ *      waitFunc()
+ *    })
+ *
+ *    listen2(() => {
+ *      // *** 如果此时 listen1 已经回调完了， 则就会触发 handleSomething
+ *      waitFunc()
+ *    })
+ *
+ *
+ *  }
+ */
+export const waitAll = (step: number, callback: () => void) => {
+  let wait = 1
+
+  return () => {
+    if (step >= wait) {
+      callback()
+    } else {
+      wait += 1
+    }
+  }
+}
+
+/**
  * 获取当前的token
  * @tips 登录时默认将token注入与cookies中
  */
